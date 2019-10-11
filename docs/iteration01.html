@@ -1,0 +1,37 @@
+<html>
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.js"></script>
+    <script>
+    //STORE some data in "global" variables known to all functions
+    var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json?q=rainbow&api-key=6GGFtVvkHPtYD4TdWxzol1FZxqqpIhnq";
+    var articleCount = 0
+            
+    function setup() {
+       noCanvas(); //no drawing needed
+       //SEND the URL and when the data comes back, run the function "gotData" 
+       loadJSON(url, gotData);
+    }
+    
+    //gotDATA for now just writes the headlines somehow(we are deferring detail) 
+    function gotData(data) {
+        //alert("FUNCTION GOTDATA WAS ACTIVATED")
+        var text =''
+        for (i=0; i < data.response.docs.length; i++) {
+            text = text + '<br />' + data.response.docs[i].headline.main
+        }
+        document.getElementById("test_output").innerHTML = text
+    }
+    
+    </script>
+<title>Shambhavi INF1339 Project 2</title>
+<style>
+    .output{font-style: italic; color: darkturquoise; font-size: 30px;}
+    </style>
+<head>
+<body>
+    <h1>New York Times API: Articles from all time about rainbows</h1>
+    <!--a <P> (paragraph) element we will use for output-->
+    <!--it's name is "test_output" and it is styled by the class "output"-->
+    <p id="test_output" class="output"></p>
+</body>
+</html>
